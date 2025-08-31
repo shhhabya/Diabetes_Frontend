@@ -12,7 +12,6 @@ export default function Login() {
     { username: "test", password: "test" },
     { username: "admin", password: "admin123" },
     { username: "john", password: "john123" },
-    { username: "sabya", password: "sabya123" },
   ];
 
   const handleSubmit = (e) => {
