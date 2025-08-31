@@ -8,9 +8,9 @@
 
 /* Base layout */
 html, body {
-  height: 100%;      /* full height */
+  height: 100%; /* full height */
   margin: 0;
-  overflow: hidden;  /* 🚫 no scroll */
+  overflow-x: hidden; /* prevent horizontal scroll */
 }
 
 body {
@@ -18,13 +18,14 @@ body {
   color: #fff;
 }
 
-/* ✅ Centered wrappers */
+/* Centered wrappers */
 .login-wrapper,
-.home-wrapper {
+.home-wrapper,
+.predict-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;   /* full screen */
+  height: 100%;
   width: 100%;
   padding: 20px;
 }
@@ -38,17 +39,21 @@ body {
   align-items: center;
   margin-bottom: 40px;
   padding: 0 40px;
+  flex-wrap: wrap; /* allow wrapping on small screens */
 }
 
-.navbar a {
+.navbar a,
+.nav-link {
   color: #00e0ff;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
   transition: color 0.3s, transform 0.3s;
+  cursor: pointer;
 }
 
-.navbar a:hover {
+.navbar a:hover,
+.nav-link:hover {
   color: #fff;
   transform: translateY(-2px);
 }
@@ -119,6 +124,7 @@ button:hover {
   }
 }
 
+/* Result box */
 .result-box {
   margin-top: 20px;
   padding: 15px;
@@ -132,26 +138,12 @@ button:hover {
   animation: fadeIn 0.6s ease-in-out;
 }
 
-.nav-link {
-  color: #00e0ff;
-  text-decoration: none;
-  font-size: 1rem;
-  font-weight: 500;
-  transition: color 0.3s, transform 0.3s;
-  cursor: pointer;
-}
-
-.nav-link:hover {
-  color: #fff;
-  transform: translateY(-2px);
-}
-
 /* Prediction wrapper */
 .predict-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  flex: 1;             /* take up available space */
+  flex: 1; /* take up available space */
   width: 100%;
   padding: 20px;
   flex-direction: column;
@@ -166,18 +158,11 @@ button:hover {
 
 /* Space for pages */
 .page-content {
-  flex: 1;  /* take up all remaining space */
+  flex: 1; /* take up all remaining space */
   display: flex;
   flex-direction: column;
   justify-content: center; /* centers content vertically */
-  align-items: center;     /* centers content horizontally */
-}
-
-/* Wrappers - CENTER content but don’t block footer */
-.home-wrapper,
-.login-wrapper,
-.predict-wrapper {
-  flex: 1;
+  align-items: center; /* centers content horizontally */
 }
 
 /* Footer */
@@ -188,4 +173,64 @@ button:hover {
   color: #aaa;
   background: rgba(0, 0, 0, 0.6);
   border-top: 1px solid rgba(0, 255, 255, 0.2);
+  flex-shrink: 0;
+}
+
+/* ---------------- Responsive Styles ---------------- */
+
+/* Tablets */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 20px;
+  }
+
+  .form-container {
+    padding: 30px;
+  }
+
+  button {
+    font-size: 0.95rem;
+  }
+
+  .result-box {
+    font-size: 1rem;
+  }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 5px 15px;
+  }
+
+  .form-container {
+    width: 95%;
+    padding: 20px;
+  }
+
+  .form-container h1 {
+    font-size: 1.3rem;
+  }
+
+  input {
+    padding: 10px;
+  }
+
+  button {
+    padding: 10px;
+    font-size: 0.85rem;
+  }
+
+  .result-box {
+    font-size: 0.95rem;
+  }
+
+  .footer {
+    font-size: 0.75rem;
+    padding: 10px;
+  }
 }
