@@ -14,15 +14,16 @@ export default function Prediction() {
   });
 
   const [result, setResult] = useState(null);
+  const [loading, setLoading] = useState(false); // ✅ New loading state
 
-  // Update form data as user types
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // Submit form and fetch prediction from backend
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true); // ✅ Start loading
+    setResult(null);  // Clear previous result
 
     try {
       const response = await fetch(
@@ -46,16 +47,17 @@ export default function Prediction() {
     } catch (error) {
       console.error(error);
       setResult("Error fetching prediction. Please try again later.");
+    } finally {
+      setLoading(false); // ✅ Stop loading
     }
   };
 
   return (
     <div className="predict-wrapper">
       <Navbar />
-
       <div className="form-container">
         <h1>Diabetes Prediction</h1>
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="predict-form">
           <input
             type="number"
             name="pregnancies"
@@ -123,8 +125,16 @@ export default function Prediction() {
             required
           />
 
-          <button type="submit">Predict Probability</button>
+          <button type="submit" disabled={loading}>
+            {loading ? "Predicting..." : "Predict Probability"} {/* ✅ Show loading */}
+          </button>
         </form>
+
+        {loading && (
+          <div className="loading-spinner">
+            ⏳ Loading...
+          </div>
+        )}
 
         {result && (
           <div className="result-box">
